@@ -1,0 +1,14 @@
+<%- include('partials/header'); -%>
+
+    <div class="box">
+        <form action="/online/result" method="post">
+            <h3>Online Subject</h3>
+            <label>Marks Obtained</label>
+            <input type="text" name="obtainedMarks" placeholder="Obtained marks">
+            <label>Maximum Marks</label>
+            <input type="text" name="maxMarks" placeholder="Maximum marks">
+            <button type="submit">Calculate</button>
+        </form>
+    </div>
+
+    <%- include('partials/footer'); -%>

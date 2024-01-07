@@ -1,0 +1,20 @@
+<%- include('partials/sgpaheader'); -%>
+        <div class="box">
+            <form name="subjectForm" action="/subject-details" onsubmit="return validateForm()" method="post" >
+                <label for="">Enter number of subjects</label>
+                <input type="number" name="subjects">
+
+                <button type="submit">Next</button>
+            </form>
+        </div>
+
+        <script>
+            function validateForm() {
+                var x = document.forms["subjectForm"]["subjects"].value;
+                if (x == "" || x == null) {
+                    alert("Number of subjects must be filled out");
+                    return false;
+                }
+            }
+        </script>
+<%- include('partials/footer'); -%>

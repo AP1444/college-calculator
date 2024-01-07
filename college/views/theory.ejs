@@ -1,0 +1,24 @@
+<%- include('partials/header'); -%>
+
+    <div class="box">
+        <form action="/theory/result" method="post">
+            <h3>Theory Subject</h3>
+            <label>Marks of MST-1(out of 20)</label>
+            <input type="text" name="mst1" placeholder="MST-1 marks">
+            <label>Marks of MST-2(out of 20)</label>
+            <input type="text" name="mst2" placeholder="MST-2 marks">
+            <label>Marks of Assignment(out of 10)</label>
+            <input type="text" name="assignment" placeholder="Assignment marks">
+            <label>Marks of Surprise Test(out of 12)</label>
+            <input type="text" name="test" placeholder="Surprise Test marks">
+            <label>Marks of Quiz(out of 4)</label>
+            <input type="text" name="quiz" placeholder="Quiz marks">
+            <label>Marks of EST(out of 60)</label>
+            <input type="text" name="est" placeholder="End Semester Test marks">
+            <label><input type="checkbox" checked="checked" name="attendence" style="margin-bottom:15px"> Have 90% or above attendence</label><br>
+              <button type="submit">Calculate</button>
+        </form>
+
+    </div>
+
+    <%- include('partials/footer'); -%>

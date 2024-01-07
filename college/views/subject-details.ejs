@@ -1,0 +1,27 @@
+<%- include('partials/sgpaheader'); -%>
+    <div class="box">
+        <form name="subjectForm" action="/next" onsubmit="return validateForm()" method="post" required>
+            <h3>Details of Subject-<%=sn%>
+            </h3>
+            <label for="">Enter name of subject</label>
+            <input type="text" name="subjectname">
+            <label for="">Enter number of Credit of subject</label>
+            <input type="number" name="subjectcredit">
+            <label for="">Enter grade of subject</label>
+            <input type="text" name="subjectgrade">
+
+            <button type="submit">Next</button>
+        </form>
+    </div>
+    <script>
+        function validateForm() {
+            var x = document.forms["subjectForm"]["subjectcredit"].value;
+            var y = document.forms["subjectForm"]["subjectgrade"].value;
+            if (x == "" || y == "" || x == null || y == null) {
+                alert("Grade and Credit must be filled out");
+                return false;
+            }
+        }
+    </script>
+
+    <%- include('partials/footer'); -%>

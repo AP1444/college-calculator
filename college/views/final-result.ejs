@@ -1,0 +1,40 @@
+<%- include('partials/sgpaheader'); -%>
+    <div class="box">
+        <h3>Final Result</h3>
+
+        <table id="subjects">
+            <tr>
+                <th>Subject Name</th>
+                <th>Subject Credit</th>
+                <th>Subject Grade</th>
+            </tr>
+
+            <% for(var i = 0; i < subjectDetails.length ; i++){ %>
+                <tr>
+                    <td><%= subjectDetails[i].name %></td>
+                    <td><%= subjectDetails[i].credit %></td>
+                    <td><%= subjectDetails[i].grade %></td>
+                </tr>
+            <%};%>
+        </table>
+
+        <p>SGPA: <%= sgpa %></p>
+                
+        
+    </div>
+
+    <script>
+        function handleBackButtonClick() {
+    console.log("Back button clicked!");
+    // Add your custom logic here
+}
+
+// Event listener for the popstate event
+window.addEventListener('popstate', function (event) {
+    // Check if the event is a navigation back
+    if (event.state && event.state.backButtonClicked) {
+        handleBackButtonClick();
+    }
+});
+    </script>
+<%- include('partials/footer'); -%>
