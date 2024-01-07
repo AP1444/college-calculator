@@ -18,10 +18,6 @@ let sn = 1;
 let subjectDetails = [];
 
 app.get("/", function (req, res) {
-    [page, internal, external, total] = ["--","--","--","--"];
-    [subjects, totalGrade, totalCredit, sgpa] = [0,0,0,0];
-    sn = 1;
-    subjectDetails = [];
     res.render("home");
 });
 
@@ -45,7 +41,6 @@ app.get("/SGPAcalculator", function (req, res) {
 });
 
 app.get("/subject-details", function (req, res) {
-    subjects = req.body.subjects;
     res.render("subject-details", { sn: sn });
 });
 app.post("/subject-details", function (req, res) {
@@ -55,6 +50,7 @@ app.post("/subject-details", function (req, res) {
 
 app.get("/final-result", function(req,res){
     res.render("final-result", { subjectDetails: subjectDetails, sgpa: sgpa })
+    subjectDetails = [];
 })
 
 app.post("/next", function (req, res) {
@@ -63,7 +59,10 @@ app.post("/next", function (req, res) {
         credit: req.body.subjectcredit,
         grade: req.body.subjectgrade
     }
-    subjectDetails.push(subject);
+    if (subjects >= sn) {
+        subjectDetails.push(subject);
+    }
+    
     
 
     if (subjects > sn) {
@@ -74,8 +73,6 @@ app.post("/next", function (req, res) {
             totalCredit += Number(subjectDetails[i].credit);
             totalGrade += mul(Number(subjectDetails[i].credit), subjectDetails[i].grade);
         }
-        console.log(totalCredit);
-        console.log(totalGrade);
         sgpa = totalGrade/totalCredit;
         res.redirect("final-result");
     }
@@ -98,7 +95,6 @@ app.post("/theory/result", function (req, res) {
     if (attendence === 'on') {
         total = total + 2;
     }
-    console.log(total);
 
     res.render("result", { internal: internal, external: external, total: total });
 });
@@ -125,7 +121,6 @@ app.post("/hybrid/result", function (req, res) {
         total = total + 2;
     }
 
-    console.log(total);
 
     res.render("result", { internal: internal, external: external, total: total });
 });
@@ -138,7 +133,6 @@ app.post("/online/result", function (req, res) {
     external = '--';
 
     total = (obtainedMarks / maxMarks) * 100;
-    console.log(total);
 
     let grade = gradeCal(total);
 
@@ -212,6 +206,6 @@ function mul(credit, grade) {
 }
 
 
-app.listen(PORT, function () {
+app.listen(PORT ,function () {
     console.log("Server started on port 3000");
 });
