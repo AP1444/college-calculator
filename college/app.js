@@ -10,8 +10,7 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-const hostname = "0.0.0.0";
-const port = 3000;
+const PORT = 3000;
 
 let [page, internal, external, total] = ["--","--","--","--"];
 let [subjects, totalGrade, totalCredit, sgpa] = [0,0,0,0];
@@ -213,6 +212,6 @@ function mul(credit, grade) {
 }
 
 
-app.listen(port, hostname, function () {
+app.listen(PORT, function () {
     console.log("Server started on port 3000");
 });
