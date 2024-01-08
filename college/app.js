@@ -16,6 +16,7 @@ let [page, internal, external, total] = ["--","--","--","--"];
 let [subjects, totalGrade, totalCredit, sgpa] = [0,0,0,0];
 let sn = 1;
 let subjectDetails = [];
+let grade;
 
 app.get("/", function (req, res) {
     res.render("home");
@@ -95,8 +96,8 @@ app.post("/theory/result", function (req, res) {
     if (attendence === 'on') {
         total = total + 2;
     }
-
-    res.render("result", { internal: internal, external: external, total: total });
+    let grade = gradeCal(total);
+    res.render("result", { internal: internal, external: external, total: total, grade: grade });
 });
 
 app.post("/hybrid/result", function (req, res) {
@@ -121,8 +122,8 @@ app.post("/hybrid/result", function (req, res) {
         total = total + 2;
     }
 
-
-    res.render("result", { internal: internal, external: external, total: total });
+    let grade = gradeCal(total);
+    res.render("result", { internal: internal, external: external, total: total, grade: grade });
 });
 
 app.post("/online/result", function (req, res) {
@@ -134,7 +135,7 @@ app.post("/online/result", function (req, res) {
 
     total = (obtainedMarks / maxMarks) * 100;
 
-    let grade = gradeCal(total);
+    grade = gradeCal(total);
 
     res.render("result", { internal: internal, external: external, total: total, grade: grade });
 });
