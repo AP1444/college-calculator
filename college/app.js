@@ -37,6 +37,10 @@ app.get("/online", function (req, res) {
     res.render("online");
 });
 
+app.get("/other", function (req, res) {
+    res.render("other");
+});
+
 app.get("/SGPAcalculator", function (req, res) {
     res.render("SGPAcalculator");
 });
@@ -52,6 +56,7 @@ app.post("/subject-details", function (req, res) {
 app.get("/final-result", function(req,res){
     res.render("final-result", { subjectDetails: subjectDetails, sgpa: sgpa })
     subjectDetails = [];
+    sgpa = '-'
 })
 
 app.post("/next", function (req, res) {
@@ -89,15 +94,16 @@ app.post("/theory/result", function (req, res) {
     let quiz = Number(req.body.quiz);
     let attendence = req.body.attendence;
     internal = ((mst1 + mst2) / 2) + assignment + (test / 3) + quiz;
+    if (attendence === 'on') {
+        internal = internal + 2;
+    }
     external = Number(req.body.est);
 
     total = internal + external;
 
-    if (attendence === 'on') {
-        total = total + 2;
-    }
+    
     let grade = gradeCal(total);
-    res.render("result", { internal: internal, external: external, total: total, grade: grade });
+    res.render("result", { internal: internal, external: external, total: total, grade: grade, page: page });
 });
 
 app.post("/hybrid/result", function (req, res) {
@@ -115,15 +121,15 @@ app.post("/hybrid/result", function (req, res) {
     let quiz = Number(req.body.quiz);
     let attendence = req.body.attendence;
     internal = ((mst1 + mst2) / 4) + ((exp1 + exp2 + exp3 + exp4) / 4) + ((project + performance) / 2) + assignment + (test / 3) + quiz;
+    if (attendence === 'on') {
+        internal = internal + 2;
+    }
     external = Number(req.body.est);
 
     total = internal + (external / 2);
-    if (attendence === 'on') {
-        total = total + 2;
-    }
 
     let grade = gradeCal(total);
-    res.render("result", { internal: internal, external: external, total: total, grade: grade });
+    res.render("result", { internal: internal, external: external, total: total, grade: grade, page: page });
 });
 
 app.post("/online/result", function (req, res) {
@@ -137,7 +143,25 @@ app.post("/online/result", function (req, res) {
 
     grade = gradeCal(total);
 
-    res.render("result", { internal: internal, external: external, total: total, grade: grade });
+    res.render("result", { internal: internal, external: external, total: total, grade: grade, page: page });
+});
+
+app.post("/other/result", function (req, res) {
+    page = 'other';
+    let internalObtainedMarks = Number(req.body.internalObtainedMarks);
+    let internalMaxMarks = Number(req.body.internalMaxMarks);
+    let externalObtainedMarks = Number(req.body.externalObtainedMarks);
+    let externalMaxMarks = Number(req.body.externalMaxMarks);
+    
+    let externalMarks = (externalObtainedMarks/externalMaxMarks)*(100-internalMaxMarks)
+    internal = internalObtainedMarks + ' out of ' + internalMaxMarks
+    external = externalMarks + ' out of ' + (100-internalMaxMarks)
+
+    total = internalObtainedMarks + externalMarks;
+
+    grade = gradeCal(total);
+
+    res.render("result", { internal: internal, external: external, total: total, grade: grade, page: page });
 });
 
 
