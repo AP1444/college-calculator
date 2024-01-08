@@ -1,0 +1,18 @@
+<%- include('partials/header'); -%>
+
+    <div class="box">
+        <form action="/other/result" method="post">
+            <h3>Other Subjects</h3>
+            <label>Internal Marks Obtained</label>
+            <input type="text" name="internalObtainedMarks" placeholder="Obtained marks">
+            <label>Internal Maximum Marks</label>
+            <input type="text" name="internalMaxMarks" placeholder="Maximum marks">
+            <label>External Marks Obtained</label>
+            <input type="text" name="externalObtainedMarks" placeholder="Obtained marks">
+            <label>External Maximum Marks</label>
+            <input type="text" name="externalMaxMarks" placeholder="Maximum marks">
+            <button type="submit">Calculate</button>
+        </form>
+    </div>
+
+    <%- include('partials/footer'); -%>
